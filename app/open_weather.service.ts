@@ -4,9 +4,11 @@ import {WeatherData} from './weather.data';
 import {Observable}     from 'rxjs/Observable';
 import 'rxjs/Rx';
 
+import {APP_ID} from './constants';
+
 @Injectable()
 export class OpenWeatherService {
-    private apiId = "xxxxx";
+    private apiId = APP_ID;
     constructor (private http: Http) {}
 
     getCurrentWeather(city: string) {
