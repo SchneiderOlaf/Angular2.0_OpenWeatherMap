@@ -4,23 +4,17 @@
   <head>
     <title>angular2 playground</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.34.4/es6-shim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.22/system-polyfills.js"></script>
-    
-    <script src="https://code.angularjs.org/2.0.0-beta.7/angular2-polyfills.js"></script>
-    <script src="https://code.angularjs.org/tools/system.js"></script>
-    <script src="https://code.angularjs.org/tools/typescript.js"></script>
-    <script src="https://code.angularjs.org/2.0.0-beta.7/Rx.js"></script>
-    <script src="https://code.angularjs.org/2.0.0-beta.7/angular2.dev.js"></script>
-    <script src="node_modules/angular2/bundles/http.dev.js"></script>
+
+    <!-- Polyfill(s) for older browsers -->
+    <script src="https://npmcdn.com/core-js/client/shim.min.js"></script>
+
+    <script src="https://npmcdn.com/zone.js@0.6.12?main=browser"></script>
+    <script src="https://npmcdn.com/reflect-metadata@0.1.3"></script>
+    <script src="https://npmcdn.com/systemjs@0.19.27/dist/system.src.js"></script>
+
+    <script src="systemjs.config.js"></script>
     <script>
-      System.config({
-        transpiler: 'typescript', 
-        typescriptOptions: { emitDecoratorMetadata: true }, 
-        packages: {'app': {defaultExtension: 'ts'}} 
-      });
-      System.import('app/boot')
-            .then(null, console.error.bind(console));
+      System.import('app/boot').catch(function(err){ console.error(err); });
     </script>
   </head>
 

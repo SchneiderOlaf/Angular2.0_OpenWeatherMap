@@ -3,7 +3,7 @@ import {WEATHER} from './mock-weather'
 import {OpenWeatherService} from './open_weather.service'
 import {CITY} from './constants';
 import {Observable}     from 'rxjs/Observable';
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 
 @Injectable()
 export class WeatherService {
