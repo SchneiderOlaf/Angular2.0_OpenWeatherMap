@@ -1,5 +1,4 @@
 import {WeatherData} from './weather.data';
-import {WEATHER} from './mock-weather'
 import {OpenWeatherService} from './open_weather.service'
 import {CITY} from './constants';
 import {Observable}     from 'rxjs/Observable';
