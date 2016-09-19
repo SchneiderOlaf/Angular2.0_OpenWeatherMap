@@ -16,6 +16,8 @@ export interface Main {
     humidity: number;
     temp_min: number;
     temp_max: number;
+    sea_level: number;
+    grnd_level: number;
 }
 
 export interface Wind {
@@ -24,6 +26,10 @@ export interface Wind {
 }
 
 export interface Snow {
+    three_hours: number;
+}
+
+export interface Rain {
     three_hours: number;
 }
 
@@ -47,6 +53,7 @@ export interface WeatherData {
     main: Main;
     wind: Wind;
     snow: Snow;
+    rain: Rain;
     clouds: Clouds;
     dt: number;
     sys: Sys;
