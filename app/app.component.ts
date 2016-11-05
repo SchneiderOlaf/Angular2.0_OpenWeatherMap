@@ -1,10 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {HTTP_PROVIDERS}    from '@angular/http';
 import {WeatherData} from './weather.data';
 import {WeatherService} from './weather.service';
-import {OpenWeatherService} from './open_weather.service';
-import {WeatherDetailComponent} from './weather-detail.component';
-import {Observable}     from 'rxjs/Observable';
 
 @Component({
   selector: 'my-app',
@@ -15,16 +11,10 @@ import {Observable}     from 'rxjs/Observable';
         <my-weather-detail [weather]="weather"></my-weather-detail>
     </div>
   `,
-  directives: [WeatherDetailComponent],
-  providers: [
-      HTTP_PROVIDERS,
-      WeatherService,
-      OpenWeatherService
-      ]
 })
 
 export class AppComponent implements OnInit {
-  public title = 'Weather';
+  title = 'Weather';
   public weather: WeatherData;
   errorMessage: string;
   
