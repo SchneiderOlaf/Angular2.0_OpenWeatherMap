@@ -36,7 +36,7 @@ import {WeatherData} from './weather.data';
     background-color: #EEE;
     margin: .5em;
     padding: .3em 0em;
-    height: 1.6em;
+    height: 2.6em;
     border-radius: 4px;
   }
   .conditions .text {
@@ -52,7 +52,7 @@ import {WeatherData} from './weather.data';
     line-height: 1em;
     position: relative;
     left: -1px;
-    top: -10px;
+    top: -25px;
     height: 1.8em;
     margin-right: .8em;
     border-radius: 4px 0px 0px 4px;
