@@ -1,16 +1,17 @@
 import {Component} from '@angular/core';
 import {WeatherData} from './weather.data';
+import {calcCelsiusAsString,degreeToDirection,describeWindSpeed,describeHumidity,describeTemperature} from './common/tools';
 
 @Component({
   selector: 'my-weather-detail',
   template: `
     <div *ngIf="weather">
-      <div><label>Temprature: </label>{{clacCelsius(weather.main.temp)}} °C</div>
+      <div><label>Temprature: </label>{{clacCelsius(weather.main.temp)}} °C ({{feltTemperature(weather.main.temp)}})</div>
       <div><label>Temprature min: </label>{{clacCelsius(weather.main.temp_min)}} °C</div>
       <div><label>Temprature max: </label>{{clacCelsius(weather.main.temp_max)}} °C</div>
-      <div><label>Wind: </label>{{weather.wind.speed}} m/s {{weather.wind.deg}} degrees (meteorological)</div>
+      <div><label>Wind: </label>{{windDirection(weather.wind.deg)}} {{weather.wind.speed}} m/s ({{windSpeed(weather.wind.speed)}})</div>
       <div><label>Pressure: </label>{{weather.main.pressure}} hpa</div>
-      <div><label>Humidity: </label>{{weather.main.humidity}} %</div>
+      <div><label>Humidity: </label>{{weather.main.humidity}} % ({{feltHumidity(weather.main.humidity)}})</div>
       <div><label>Cloudiness: </label>{{weather.clouds.all}} %</div>
       <div *ngIf="weather.rain"><label>Rain: </label>{{weather.rain.three_hours}} liter</div>
       <div *ngIf="weather.snow"><label>Snow: </label>{{weather.snow.three_hours}} liter</div>
@@ -36,7 +37,7 @@ import {WeatherData} from './weather.data';
     background-color: #EEE;
     margin: .5em;
     padding: .3em 0em;
-    height: 2.6em;
+    height: 1.6em;
     border-radius: 4px;
   }
   .conditions .text {
@@ -52,7 +53,7 @@ import {WeatherData} from './weather.data';
     line-height: 1em;
     position: relative;
     left: -1px;
-    top: -25px;
+    top: -10px;
     height: 1.8em;
     margin-right: .8em;
     border-radius: 4px 0px 0px 4px;
@@ -63,6 +64,22 @@ export class WeatherDetailComponent {
   public weather: WeatherData;
   
   clacCelsius(kelvin: number) {
-    return (kelvin - 273.15).toFixed(2);
+    return calcCelsiusAsString(kelvin);
+  }
+
+  windDirection(dir: number) {
+    return degreeToDirection(dir);
+  }
+
+  windSpeed(speed: number) {
+    return describeWindSpeed(speed);
+  }
+
+  feltHumidity(hum: number) {
+    return describeHumidity(hum);
+  }
+
+  feltTemperature(temperature: number) {
+    return describeTemperature(temperature);
   }
 }
