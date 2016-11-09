@@ -49,13 +49,13 @@ export function describeHumidity(humidity) {
 
 export function describeTemperature(temp) {
   var celsius = calcCelsius(temp);
-  if (celsius >= 0 && celsius < 7) {
+  if (celsius < 3) {
     return 'very cold';
-  } else if (celsius >= 8 && celsius < 13) {
+  } else if (celsius >= 3 && celsius < 8) {
     return 'cold';
-  } else if (celsius >= 13 && celsius < 18) {
+  } else if (celsius >= 8 && celsius < 15) {
     return 'cool';
-  } else if (celsius >= 18 && celsius < 23) {
+  } else if (celsius >= 15 && celsius < 23) {
     return 'mild';
   } else if (celsius >= 23 && celsius < 28) {
     return 'warm';
