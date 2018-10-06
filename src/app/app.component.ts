@@ -3,16 +3,10 @@ import {WeatherData} from './weather.data';
 import {WeatherService} from './weather.service';
 
 @Component({
-  selector: 'my-app',
-  template:`
-    <h1>{{title}}</h1>
-    <div *ngIf="weather">
-        <h2>{{weather.name}}</h2>
-        <my-weather-detail [weather]="weather"></my-weather-detail>
-    </div>
-  `,
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
-
 export class AppComponent implements OnInit {
   title = 'Weather';
   public weather: WeatherData;
