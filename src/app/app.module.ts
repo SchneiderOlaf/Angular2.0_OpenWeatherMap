@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { WeatherDetailComponent } from './weather-detail.component';
 import { WeatherService } from './weather.service';
 import { OpenWeatherService } from './open_weather.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { OpenWeatherService } from './open_weather.service';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    BrowserAnimationsModule
   ],
   providers: [
     WeatherService,
