@@ -1,7 +1,8 @@
 import {Injectable}     from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {Http} from '@angular/http';
 import {WeatherData} from './weather.data';
-import {Observable}     from 'rxjs/Observable';
+import {throwError}     from 'rxjs'
+import { catchError, map } from 'rxjs/operators';
 import 'rxjs/Rx';
 
 import {APP_ID} from './constants';
@@ -12,12 +13,8 @@ export class OpenWeatherService {
     constructor (private http: Http) {}
 
     getCurrentWeather(city: string) {
-        return this.http.get("http://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=" + this.apiId)
-                        .map(res => <WeatherData> res.json())
-                        .catch(this.handleError);
+        return  this.http.get("http://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=" + this.apiId)
+                        .pipe(map(res => <WeatherData> res.json()))
+                        .pipe(catchError(error => throwError( error.message || 'Server error')))
     };
-    
-    private handleError (error:Response) {
-        return Observable.throw(error.json().error || 'Server error');
-    }
 }
