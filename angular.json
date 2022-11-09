@@ -119,5 +119,7 @@
       }
     }
   },
-  "defaultProject": "OpenWeather"
+  "cli": {
+    "analytics": false
+  }
 }
