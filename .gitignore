@@ -38,3 +38,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Files that are not publicly accessible
+/src/app/constants.ts
