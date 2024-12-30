@@ -6,9 +6,9 @@ import {calcCelsiusAsString,degreeToDirection,describeWindSpeed,describeHumidity
   selector: 'my-weather-detail',
   template: `
     <div *ngIf="weather">
-      <div><label>Temprature: </label>{{clacCelsius(weather.main.temp)}} °C ({{feltTemperature(weather.main.temp)}})</div>
-      <div><label>Temprature min: </label>{{clacCelsius(weather.main.temp_min)}} °C</div>
-      <div><label>Temprature max: </label>{{clacCelsius(weather.main.temp_max)}} °C</div>
+      <div><label>Temperature: </label>{{clacCelsius(weather.main.temp)}} °C ({{feltTemperature(weather.main.temp)}})</div>
+      <div><label>Temperature min: </label>{{clacCelsius(weather.main.temp_min)}} °C</div>
+      <div><label>Temperature max: </label>{{clacCelsius(weather.main.temp_max)}} °C</div>
       <div><label>Wind: </label>{{windDirection(weather.wind.deg)}} {{weather.wind.speed}} m/s ({{windSpeed(weather.wind.speed)}})</div>
       <div><label>Pressure: </label>{{weather.main.pressure}} hpa</div>
       <div><label>Humidity: </label>{{weather.main.humidity}} % ({{feltHumidity(weather.main.humidity)}})</div>
