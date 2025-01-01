@@ -13,82 +13,66 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": [
-              "rxjs/Observable",
-              "rxjs/Rx"
-            ],
             "outputPath": "dist/OpenWeather",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [
+              "zone.js",
+              "@angular/localize/init"
+            ],
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.css"
             ],
-            "scripts": [],
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true
+            "scripts": []
           },
           "configurations": {
             "production": {
-              "budgets": [
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
+              "polyfills": [
+                "zone.js",
+                "@angular/localize/init"
+              ],
+              "tsConfig": "src/tsconfig.app.json",
+              "styles": [
+                "src/styles.css"
+              ],
+              "scripts": [],
+              "optimization": false
             }
-          },
-          "defaultConfiguration": ""
+          }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "OpenWeather:build"
+            "buildTarget": "OpenWeather:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "OpenWeather:build:production"
+              "buildTarget": "OpenWeather:build:production"
             }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "OpenWeather:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [
+              "zone.js",
+              "@angular/localize/init"
+            ],
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.css"
             ],
             "scripts": [],
@@ -97,13 +81,7 @@
               "src/assets"
             ]
           }
-        }
-      }
-    },
-    "OpenWeather-e2e": {
-      "root": "e2e/",
-      "projectType": "application",
-      "architect": {
+        },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
