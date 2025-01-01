@@ -11,12 +11,11 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": {
-              "base": "dist/OpenWeather"
-            },
+            "outputPath": "dist/OpenWeather",
             "index": "src/index.html",
+            "main": "src/main.ts",
             "polyfills": [
               "zone.js",
               "@angular/localize/init"
@@ -29,8 +28,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
-            "browser": "src/main.ts"
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -44,7 +42,12 @@
                 "zone.js",
                 "@angular/localize/init"
               ],
-              "tsConfig": "src/tsconfig.app.json"
+              "tsConfig": "src/tsconfig.app.json",
+              "styles": [
+                "src/styles.css"
+              ],
+              "scripts": [],
+              "optimization": false
             }
           }
         },
