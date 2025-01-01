@@ -3,8 +3,8 @@ import {WeatherData} from './weather.data';
 import {calcCelsiusAsString,degreeToDirection,describeWindSpeed,describeHumidity,describeTemperature} from './common/tools';
 
 @Component({
-  selector: 'my-weather-detail',
-  template: `
+    selector: 'my-weather-detail',
+    template: `
     <div *ngIf="weather">
       <div><label>Temperature: </label>{{clacCelsius(weather.main.temp)}} °C ({{feltTemperature(weather.main.temp)}})</div>
       <div><label>Temperature min: </label>{{clacCelsius(weather.main.temp_min)}} °C</div>
@@ -22,8 +22,8 @@ import {calcCelsiusAsString,degreeToDirection,describeWindSpeed,describeHumidity
       </ul>
     </div>
   `,
-  inputs: ['weather'],
-  styles:[`
+    inputs: ['weather'],
+    styles: [`
   .conditions {
     margin: 0 0 2em 0;
     list-style-type: none;
@@ -57,7 +57,8 @@ import {calcCelsiusAsString,degreeToDirection,describeWindSpeed,describeHumidity
     height: 1.8em;
     margin-right: .8em;
     border-radius: 4px 0px 0px 4px;
-  }`]
+  }`],
+    standalone: false
 })
 
 export class WeatherDetailComponent {
