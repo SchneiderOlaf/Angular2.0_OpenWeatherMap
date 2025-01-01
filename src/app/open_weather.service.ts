@@ -1,5 +1,5 @@
 import {Injectable}     from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {WeatherData} from './weather.data';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators'; // Import specific operators
