@@ -5,21 +5,46 @@ import {calcCelsiusAsString,degreeToDirection,describeWindSpeed,describeHumidity
 @Component({
     selector: 'my-weather-detail',
     template: `
-    <div *ngIf="weather">
-      <div><label>Temperature: </label>{{clacCelsius(weather.main.temp)}} °C ({{feltTemperature(weather.main.temp)}})</div>
-      <div><label>Temperature min: </label>{{clacCelsius(weather.main.temp_min)}} °C</div>
-      <div><label>Temperature max: </label>{{clacCelsius(weather.main.temp_max)}} °C</div>
-      <div><label>Wind: </label>{{windDirection(weather.wind.deg)}} {{weather.wind.speed}} m/s ({{windSpeed(weather.wind.speed)}})</div>
-      <div><label>Pressure: </label>{{weather.main.pressure}} hpa</div>
-      <div><label>Humidity: </label>{{weather.main.humidity}} % ({{feltHumidity(weather.main.humidity)}})</div>
-      <div><label>Cloudiness: </label>{{weather.clouds.all}} %</div>
-      <div *ngIf="weather.rain"><label>Rain: </label>{{weather.rain.three_hours}} liter</div>
-      <div *ngIf="weather.snow"><label>Snow: </label>{{weather.snow.three_hours}} liter</div>
-      <ul class="conditions">
-        <li *ngFor="let w of weather.weather">
-            <span class="badge">{{w.description}}</span><img src="http://openweathermap.org/img/w/{{w.icon}}.png">
-        </li>
-      </ul>
+    <div class="container">
+      <h2>Weather Details</h2>
+      <div *ngIf="weather" class="weather-detail">
+        <div class="card weather-info">
+          <strong>Temperature:</strong> {{clacCelsius(weather.main.temp)}} °C ({{feltTemperature(weather.main.temp)}})
+        </div>
+        <div class="card weather-info">
+          <strong>Min:</strong> {{clacCelsius(weather.main.temp_min)}} °C
+        </div>
+        <div class="card weather-info">
+          <strong>Max:</strong> {{clacCelsius(weather.main.temp_max)}} °C
+        </div>
+        <div class="card weather-info">
+          <strong>Wind:</strong> {{windDirection(weather.wind.deg)}} {{weather.wind.speed}} m/s ({{windSpeed(weather.wind.speed)}})
+        </div>
+        <div class="card weather-info">
+          <strong>Pressure:</strong> {{weather.main.pressure}} hpa
+        </div>
+        <div class="card weather-info">
+          <strong>Humidity:</strong> {{weather.main.humidity}} % ({{feltHumidity(weather.main.humidity)}})
+        </div>
+        <div class="card weather-info">
+          <strong>Cloudiness:</strong> {{weather.clouds.all}} %
+        </div>
+        <div *ngIf="weather.rain" class="card weather-info">
+          <strong>Rain:</strong> {{weather.rain.three_hours}} liter
+        </div>
+        <div *ngIf="weather.snow" class="card weather-info">
+          <strong>Snow:</strong> {{weather.snow.three_hours}} liter
+        </div>
+        <ul class="conditions">
+          <li *ngFor="let w of weather.weather">
+            <span class="badge">{{w.description}}</span>
+            <img class="weather-icon" src="http://openweathermap.org/img/w/{{w.icon}}.png" alt="Weather Icon">
+          </li>
+        </ul>
+      </div>
+      <div *ngIf="!weather" class="card">
+        <p>No weather data available.</p>
+      </div>
     </div>
   `,
     inputs: ['weather'],
