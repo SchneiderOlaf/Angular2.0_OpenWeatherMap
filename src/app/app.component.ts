@@ -15,14 +15,19 @@ export class AppComponent implements OnInit {
   
   constructor(private _weatherService: WeatherService) {}
   
-  getWeather() {
-     this._weatherService.getWeather().subscribe(
-                        weather => this.weather = weather,
-                        error =>  this.errorMessage = <any>error);
+  getWeather(city: string) {
+    this._weatherService.getWeather(city).subscribe(
+      weather => this.weather = weather,
+      error => this.errorMessage = <any>error
+    );
   }
-  
+
+  onCitySelected(city: string) {
+    this.getWeather(city);
+  }
+
   ngOnInit() {
-    this.getWeather();
+    // Optionally, load default weather or leave empty
   }
   
 }
