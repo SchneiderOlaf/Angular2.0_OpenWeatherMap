@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 
@@ -13,9 +13,13 @@ import { FormsModule } from '@angular/forms';
     </div>
   `
 })
-export class SearchCityComponent {
-  city: string = '';
+export class SearchCityComponent implements OnInit {
+  @Input() city: string = '';
   @Output() citySelected = new EventEmitter<string>();
+
+  ngOnInit() {
+    // ngModel will bind to @Input city
+  }
 
   search() {
     if (this.city.trim()) {

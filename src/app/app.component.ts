@@ -12,9 +12,10 @@ export class AppComponent implements OnInit {
   title = 'Weather';
   public weather: WeatherData;
   errorMessage: string;
-  
+  public savedCity: string = '';
+
   constructor(private _weatherService: WeatherService) {}
-  
+
   getWeather(city: string) {
     this._weatherService.getWeather(city).subscribe(
       weather => this.weather = weather,
@@ -23,11 +24,17 @@ export class AppComponent implements OnInit {
   }
 
   onCitySelected(city: string) {
+    localStorage.setItem('selectedCity', city);
+    this.savedCity = city;
     this.getWeather(city);
   }
 
   ngOnInit() {
-    // Optionally, load default weather or leave empty
+    const savedCity = localStorage.getItem('selectedCity');
+    if (savedCity) {
+      this.savedCity = savedCity;
+      this.getWeather(savedCity);
+    }
   }
   
 }
