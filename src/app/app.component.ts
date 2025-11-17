@@ -35,6 +35,12 @@ export class AppComponent implements OnInit {
 
   toggleUnit() {
     this.selectedUnit = this.selectedUnit === 'metric' ? 'imperial' : 'metric';
+    // persist user preference
+    try {
+      localStorage.setItem('selectedUnit', this.selectedUnit);
+    } catch (e) {
+      // ignore storage errors
+    }
     // refresh displayed data (we keep API responses in metric internally)
     if (this.weather) {
       // no need to refetch from API; just update UI bindings
@@ -87,6 +93,15 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    // restore unit preference if available
+    try {
+      const savedUnit = localStorage.getItem('selectedUnit');
+      if (savedUnit === 'metric' || savedUnit === 'imperial') {
+        this.selectedUnit = savedUnit as 'metric' | 'imperial';
+      }
+    } catch (e) {
+      // ignore storage errors
+    }
     const savedCity = localStorage.getItem('selectedCity');
     if (savedCity) {
       this.savedCity = savedCity;
