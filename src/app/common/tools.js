@@ -84,12 +84,20 @@ function describeTemperature(temp) {
     return 'very hot';
 }
 exports.describeTemperature = describeTemperature;
-function calcCelsius(kelvin) {
-    return kelvin - 273.15;
+function calcCelsius(value) {
+    // OpenWeatherMap may return temperatures in Kelvin (older/default) or in Celsius
+    // If value looks like Kelvin (> 200), convert to Celsius, otherwise assume it's already Celsius
+    if (typeof value === 'number' && value > 200) {
+        return value - 273.15;
+    }
+    return value;
 }
 exports.calcCelsius = calcCelsius;
-function calcCelsiusAsString(kelvin) {
-    return calcCelsius(kelvin).toFixed(2);
+function calcCelsiusAsString(value) {
+    const c = calcCelsius(value);
+    // Protect against undefined/null
+    if (c === undefined || c === null || Number.isNaN(c)) return '';
+    return c.toFixed(2);
 }
 exports.calcCelsiusAsString = calcCelsiusAsString;
 //# sourceMappingURL=tools.js.map
