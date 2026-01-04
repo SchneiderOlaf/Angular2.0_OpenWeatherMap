@@ -1,14 +1,15 @@
-import { Component, Input, AfterViewInit, OnChanges, SimpleChanges, OnDestroy, ElementRef } from '@angular/core';
+import { Component, Input, AfterViewInit, OnChanges, SimpleChanges, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import * as L from 'leaflet';
 
 @Component({
   selector: 'app-map',
   standalone: true,
   template: `
-    <div id="map"></div>
+    <div id="map" #mapContainer></div>
   `
 })
 export class MapComponent implements AfterViewInit, OnChanges, OnDestroy {
+  @ViewChild('mapContainer', { static: false }) private mapContainer?: ElementRef<HTMLDivElement>;
   @Input() lat?: number;
   @Input() lon?: number;
   @Input() zoom: number = 10;
@@ -40,13 +41,16 @@ export class MapComponent implements AfterViewInit, OnChanges, OnDestroy {
   initMapIfReady() {
     if (this.map) return;
     if (this.lat === undefined || this.lon === undefined) return;
-    const container: HTMLElement = this.el.nativeElement.querySelector('#map');
+    const container: HTMLElement | undefined = this.mapContainer ? this.mapContainer.nativeElement : this.el.nativeElement.querySelector('#map');
+    if (!container) return;
     this.map = L.map(container).setView([this.lat!, this.lon!], this.zoom);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(this.map);
     this.marker = L.marker([this.lat!, this.lon!]).addTo(this.map);
     this.updatePopup();
+    // Ensure Leaflet recalculates size after CSS/layout changes
+    this.scheduleInvalidate();
   }
 
   updateMarker() {
@@ -56,9 +60,11 @@ export class MapComponent implements AfterViewInit, OnChanges, OnDestroy {
     if (this.marker) {
       this.marker.setLatLng([this.lat, this.lon]);
       this.updatePopup();
+      this.scheduleInvalidate();
     } else {
       this.marker = L.marker([this.lat, this.lon]).addTo(this.map);
       this.updatePopup();
+      this.scheduleInvalidate();
     }
   }
 
@@ -90,6 +96,32 @@ export class MapComponent implements AfterViewInit, OnChanges, OnDestroy {
     this.marker.bindPopup(content, { minWidth: 220, className: 'weather-popup' });
     // Open popup automatically when updated
     this.marker.openPopup();
+    // Popup/open may change map layout; ensure Leaflet updates
+    this.scheduleInvalidate();
+  }
+
+  private scheduleInvalidate(delay = 120) {
+    // run after layout completes so Leaflet can compute sizes correctly
+    // retry until the container has a non-zero size or max attempts reached
+    const maxAttempts = 8;
+    let attempts = 0;
+    const tryInvalidate = () => {
+      attempts++;
+      try {
+        if (this.map) {
+          try { this.map.invalidateSize(); } catch (e) { /* ignore */ }
+          const container = this.map.getContainer();
+          const rect = container ? (container as HTMLElement).getBoundingClientRect() : null;
+          const hasSize = rect && rect.width > 0 && rect.height > 0;
+          if (!hasSize && attempts < maxAttempts) {
+            requestAnimationFrame(tryInvalidate);
+          }
+        }
+      } catch (e) {
+        if (attempts < maxAttempts) requestAnimationFrame(tryInvalidate);
+      }
+    };
+    setTimeout(tryInvalidate, delay);
   }
 
   ngOnDestroy() {
