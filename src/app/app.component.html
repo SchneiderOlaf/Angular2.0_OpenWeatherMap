@@ -23,11 +23,16 @@
         </div>
 </div>
 
-<div *ngIf="dailyForecast.length" class="container">
+<div *ngIf="dailyForecast.length" class="container chart-row">
+    <div class="card chart-card">
+        <app-forecast-chart [data]="dailyForecast" [unit]="selectedUnit"></app-forecast-chart>
+    </div>
+</div>
+
+<div *ngIf="dailyForecast.length" class="container forecast-container">
     <h3>5-Day Forecast</h3>
-    <app-forecast-chart [data]="dailyForecast" [unit]="selectedUnit"></app-forecast-chart>
     <div class="forecast-list">
-        <div *ngFor="let day of dailyForecast" class="card">
+        <div *ngFor="let day of dailyForecast" class="card forecast-item">
             <div><strong>{{ day.date }}</strong></div>
             <div>Min: {{ formatTempDisplay(day.min) }} | Max: {{ formatTempDisplay(day.max) }}</div>
             <div>{{ day.desc }}</div>

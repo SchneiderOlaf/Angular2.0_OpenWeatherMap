@@ -10,9 +10,17 @@ import Chart from 'chart.js/auto';
     </div>
   `,
   styles: [`
-    .chart-container { transition: opacity 300ms ease-in-out; opacity: 1; }
+    .chart-container { 
+      transition: opacity 300ms ease-in-out; 
+      opacity: 1; 
+      width: 100%;
+      height: 100%;
+    }
     .chart-container.fade { opacity: 0.25; }
-    canvas { max-width: 100%; }
+    canvas { 
+      width: 100% !important; 
+      height: 100% !important; 
+    }
   `]
 })
 export class ForecastChartComponent implements AfterViewInit, OnChanges {
@@ -62,7 +70,8 @@ export class ForecastChartComponent implements AfterViewInit, OnChanges {
   }
 
   buildChart() {
-    const ctx = this.el.nativeElement.querySelector('#forecastChart');
+    const ctx = this.el.nativeElement.querySelector('#forecastChart') as HTMLCanvasElement;
+    ctx.height = 160;
     const labels = this.data.map(d => d.date);
     const minTemps = this.data.map(d => this.unit === 'imperial' ? (d.min * 9/5 + 32) : d.min);
     const maxTemps = this.data.map(d => this.unit === 'imperial' ? (d.max * 9/5 + 32) : d.max);
@@ -101,6 +110,7 @@ export class ForecastChartComponent implements AfterViewInit, OnChanges {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         scales: {
           y: {
             type: 'linear',
