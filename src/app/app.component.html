@@ -1,7 +1,43 @@
 
 <h1>{{title}}</h1>
-<app-search-city [city]="savedCity" (citySelected)="onCitySelected($event)"></app-search-city>
-<div *ngIf="weather">
-    <h2>{{weather.name}}</h2>
-    <my-weather-detail [weather]="weather"></my-weather-detail>
+<div style="display:flex;gap:12px;align-items:center;">
+    <app-search-city [city]="savedCity" (citySelected)="onCitySelected($event)"></app-search-city>
+    <button (click)="toggleUnit()">Unit: {{ selectedUnit === 'metric' ? '°C' : '°F' }}</button>
+</div>
+<div *ngIf="weather" class="container details-row">
+        <div class="card">
+            <h2>{{weather.name}}</h2>
+            <my-weather-detail [weather]="weather" [unit]="selectedUnit"></my-weather-detail>
+        </div>
+        <div class="card map-card">
+            <app-map
+                [lat]="weather.coord?.lat"
+                [lon]="weather.coord?.lon"
+                [zoom]="10"
+                [city]="weather.name"
+                [temp]="weather.main?.temp"
+                [icon]="weather.weather?.[0]?.icon"
+                [humidity]="weather.main?.humidity"
+                [unit]="selectedUnit"
+            ></app-map>
+        </div>
+</div>
+
+<div *ngIf="dailyForecast.length" class="container chart-row">
+    <div class="card chart-card">
+        <app-forecast-chart [data]="dailyForecast" [unit]="selectedUnit"></app-forecast-chart>
+    </div>
+</div>
+
+<div *ngIf="dailyForecast.length" class="container forecast-container">
+    <h3>5-Day Forecast</h3>
+    <div class="forecast-list">
+        <div *ngFor="let day of dailyForecast" class="card forecast-item">
+            <div><strong>{{ day.date }}</strong></div>
+            <div>Min: {{ formatTempDisplay(day.min) }} | Max: {{ formatTempDisplay(day.max) }}</div>
+            <div>{{ day.desc }}</div>
+            <div>Precipitation Probability: {{ day.pop }}%</div>
+            <img *ngIf="day.icon" [src]="'http://openweathermap.org/img/wn/' + day.icon + '@2x.png'" alt="icon">
+        </div>
+    </div>
 </div>

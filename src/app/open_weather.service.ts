@@ -13,7 +13,8 @@ export class OpenWeatherService {
     constructor (private http: HttpClient) {}
 
     getCurrentWeather(city: string) {
-        return  this.http.get(`${this.apiUrl}?q=${city}&appid=${this.apiId}`)
+        // request metric units so temperature values are returned in Celsius
+        return  this.http.get(`${this.apiUrl}?q=${encodeURIComponent(city)}&appid=${this.apiId}&units=metric`)
                         .pipe(
                             map(res => <WeatherData> res),
                             catchError(error => {
@@ -21,4 +22,15 @@ export class OpenWeatherService {
                                 throw error;
                               }))
     };
+
+    get5DayForecast(city: string) {
+        const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&appid=${this.apiId}&units=metric`;
+        return this.http.get(url).pipe(
+            map(res => res),
+            catchError(error => {
+                console.error('Error fetching 5-day forecast', error);
+                throw error;
+            })
+        );
+    }
 }

@@ -8,4 +8,8 @@ export class WeatherService {
   getWeather(city: string) {
     return this._service.getCurrentWeather(city);
   }
+
+  getForecast(city: string) {
+    return this._service.get5DayForecast(city);
+  }
 }

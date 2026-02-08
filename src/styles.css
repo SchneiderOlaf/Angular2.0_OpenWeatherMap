@@ -68,3 +68,81 @@ button {
 button:hover {
 	background: #1565c0;
 }
+
+/* Leaflet styles */
+@import "~leaflet/dist/leaflet.css";
+
+/* Layout for details row (weather + map) */
+.details-row {
+	display: flex;
+	gap: 16px;
+	/* stretch children so cards (details + map) match height */
+	align-items: stretch;
+	flex-wrap: wrap;
+}
+.container.details-row {
+    /* allow the details-row container to be wider so details and map sit side-by-side */
+    max-width: 1000px;
+}
+.container.chart-row {
+    max-width: 1000px;
+}
+.container.forecast-container {
+    max-width: 1000px;
+}
+.details-row > .card {
+    flex: 1 1 320px;
+}
+.map-card {
+    /* let the map-card grow to match the adjacent card height */
+    min-height: 320px;
+    padding: 0;
+    overflow: hidden;
+    /* removed display: flex; to allow #map to use width: 100% directly */
+}
+.map-card #map {
+    width: 100%;
+    /* fill the card's height so the map matches the details card */
+    height: 100%;
+    /* removed flex: 1 1 auto; since .map-card is no longer a flex container */
+}
+.chart-card {
+    min-height: 160px;
+    padding: 0;
+    overflow: hidden;
+}
+.chart-card app-forecast-chart {
+    width: 100%;
+    height: 100%;
+}
+
+/* Chart row */
+.chart-row {
+    display: flex;
+    gap: 16px;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+.chart-row > .card {
+    flex: 1 1 320px;
+}
+
+/* Forecast list */
+.forecast-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.forecast-item {
+    /* On narrow, full width */
+}
+
+/* Media query for wide screens */
+@media (min-width: 768px) {
+    .forecast-list {
+        flex-direction: row;
+    }
+    .forecast-item {
+        flex: 1;
+    }
+}
