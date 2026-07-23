@@ -69,9 +69,6 @@ button:hover {
 	background: #1565c0;
 }
 
-/* Leaflet styles */
-@import "~leaflet/dist/leaflet.css";
-
 /* Layout for details row (weather + map) */
 .details-row {
 	display: flex;

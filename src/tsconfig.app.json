@@ -8,10 +8,14 @@
     "main.ts"
   ],
   "include": [
-    "**/*.d.ts",
-    "**/*.ts"
+    "app/**/*.ts",
+    "app/**/*.d.ts",
+    "environments/environment.ts",
+    "types/**/*.d.ts"
   ],
   "exclude": [
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "test.ts",
+    "environments/environment.prod.ts"
   ]
 }
