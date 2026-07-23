@@ -10,8 +10,8 @@ import {WeatherService} from './weather.service';
 })
 export class AppComponent implements OnInit {
   title = 'Weather';
-  public weather: WeatherData;
-  errorMessage: string;
+  public weather!: WeatherData;
+  errorMessage: string | null = null;
   public savedCity: string = '';
   public forecast: any = null;
   public dailyForecast: any[] = [];

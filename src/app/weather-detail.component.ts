@@ -87,7 +87,7 @@ import {calcCelsiusAsString,degreeToDirection,describeWindSpeed,describeHumidity
 })
 
 export class WeatherDetailComponent {
-  public weather: WeatherData;
+  public weather!: WeatherData;
   @Input() unit: 'metric' | 'imperial' = 'metric';
   
   clacCelsius(kelvin: number) {
