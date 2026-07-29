@@ -5,8 +5,17 @@
     "types": []
   },
   "files": [
-    "main.ts"  ],
+    "main.ts"
+  ],
   "include": [
-    "src/**/*.d.ts"
+    "app/**/*.ts",
+    "app/**/*.d.ts",
+    "environments/environment.ts",
+    "types/**/*.d.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+    "test.ts",
+    "environments/environment.prod.ts"
   ]
 }
